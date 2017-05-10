@@ -5,7 +5,7 @@
     - ansible-odoo
   vars:
     - odoo_version: 8.0
-    - odoo_config_admin_passwd: odoo
+    - odoo_config_admin_passwd: admin
     - odoo_repo_url2: https://github.com/OCA/l10n-spain.git
     - odoo_repo_type2: git
     - odoo_repo_rev2: 8.0

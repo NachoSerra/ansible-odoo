@@ -1,193 +1,66 @@
-# Odoo [![Build Status](https://travis-ci.org/osiell/ansible-odoo.png)](https://travis-ci.org/osiell/ansible-odoo)
+# Ansible - Odoo
 
-Ansible role to install Odoo from a Git or Mercurial repository,
-and configure it.
+Instalación de odoo con ansible junto con la localización española.
 
-This role supports two types of installation:
+### Configuración inicial
+* Instalar ansible: `pip install ansible`
+* Copiar el fichero **ansible.cfg** del repositorio a la ruta /etc/ansible
+* Crear el fichero **hosts** en la ruta /etc/ansible
 
-* **standard**: install the Odoo dependencies from APT repositories and the
-Odoo project from a Git/Hg repository. Odoo is configured with Ansible options
-(`odoo_config_*` ones).
+Ejemplo de fichero hosts:
 
-* **buildout**: build the Odoo project from a Git/Hg repository containing a
-Buildout configuration file based on the
-[anybox.recipe.odoo](https://pypi.python.org/pypi/anybox.recipe.odoo/) recipe.
-Odoo and its dependencies are then installed and executed inside a Python
-virtual environment. The configuration part is also managed by Buildout
-(`odoo_config_*` options are not used excepting the `odoo_config_db_*` ones
-for PostgreSQL related tasks).
+Para local:
 
-Minimum Ansible Version: 2.1
+`localhost ansible_connection=local`
 
-## Supported versions and systems
+Para servidor remoto:
 
-### Standard (odoo_install_type: standard)
+`servidorDestino ansible_host=192.168.0.35 ansible_user=root ansible_port=22`
 
-| System / Odoo | 8.0 | 9.0 | 10.0 |
-|---------------|-----|-----|------|
-| Debian 7      | yes |  -  |  -   |
-| Debian 8      | yes | yes | yes  |
-| Ubuntu 12.04  | yes |  -  |  -   |
-| Ubuntu 14.04  | yes | yes | yes  |
-| Ubuntu 16.04  | yes | yes | yes  |
-
-### Buildout (odoo_install_type: buildout)
-
-You only need a Debian-based system, all the stuff is then handled by Buildout
-to run Odoo >= 8.0.
-
-## Example (Playbook)
-
-### odoo_install_type: standard (default)
-
-Standard installation (assuming that PostgreSQL is installed and running on
-the same host):
-
+### Ejecutar receta
+El repositorio viene con este ejemplo de receta:
 ```yaml
 - name: Odoo
-  hosts: odoo_server
+  hosts: all
   become: yes
   roles:
-    - odoo
+    - ansible-odoo
   vars:
-    - odoo_version: 10.0
-    - odoo_config_admin_passwd: SuPerPassWorD
-```
-
-With the standard installation type you configure Odoo with the available
-`odoo_config_*` options.
-
-Standard installation but with PostgreSQL installed on a remote host (and
-available from your Ansible inventory):
-
-```yaml
-- name: Odoo
-  hosts: odoo_server
-  become: yes
-  roles:
-    - odoo
-  vars:
-    - odoo_version: 10.0
-    - odoo_config_admin_passwd: SuPerPassWorD
-    - odoo_config_db_host: pg_server
-    - odoo_config_db_user: odoo
-    - odoo_config_db_passwd: PaSsWoRd
-```
-
-Standard installation from a personnal Git repository such as your repository
-looks like this:
-
-```sh
-REPO/
-├── server              # could be a sub-repository of https://github.com/odoo/odoo
-├── addons_oca_web      # another sub-repository (https://github.com/OCA/web here)
-├── addons_oca_connector    # yet another sub-repository (https://github.com/OCA/connector)
-└── addons              # custom modules
-```
-
-Here we set some options required by the ``connector`` framework:
-
-```yaml
-- name: Odoo
-  hosts: odoo_server
-  become: yes
-  roles:
-    - odoo
-  vars:
-    - odoo_version: 10.0
-    - odoo_repo_type: git
-    - odoo_repo_url: https://SERVER/REPO
-    - odoo_repo_rev: master
-    - odoo_repo_dest: "/home/{{ odoo_user }}/odoo"
-    - odoo_init_env:
-        ODOO_CONNECTOR_CHANNELS: root:2
-    - odoo_config_admin_passwd: SuPerPassWorD
+    - odoo_version: 8.0
+    - odoo_config_admin_passwd: admin
+    - odoo_repo_url2: https://github.com/OCA/l10n-spain.git
+    - odoo_repo_type2: git
+    - odoo_repo_rev2: 8.0
+    - odoo_repo_dest2: "/home/{{ odoo_user }}/odoo/l10n-spain"
     - odoo_config_addons_path:
         - "/home/{{ odoo_user }}/odoo/server/openerp/addons"
         - "/home/{{ odoo_user }}/odoo/server/addons"
-        - "/home/{{ odoo_user }}/odoo/addons_oca_web"
-        - "/home/{{ odoo_user }}/odoo/addons_oca_connector"
-        - "/home/{{ odoo_user }}/odoo/addons"
-    odoo_config_server_wide_modules: web,web_kanban,connector
-    odoo_config_workers: 8
+        - "/home/{{ odoo_user }}/odoo/l10n-spain"
 ```
+Si quisieramos seleccionar el host donde se va a ejecutar cambiaremos _all_, por la etiqueta que pusieramos en el fichero de configuración **hosts**, en nuestro caso podría ser _localhost_ o _servidorDestino_
+En _vars_ podemos añadir o modificar las variables que queramos, ya sea para cambiar la version de odoo que se va a instalar, la contraseña maestra, o el repositorio.
+En este caso en la receta de ejemplo se instalaría la versión 8 de Odoo con todas sus dependencias.
 
-### odoo_install_type: buildout
+Comando para ejecutar receta:
 
-With a Buildout installation type, Odoo is installed and configured directly
-by Buildout:
+`ansible-playbook playbook.yml`
 
-```yaml
-- name: Odoo
-  hosts: odoo_server
-  become: yes
-  roles:
-    - odoo
-  vars:
-    - odoo_install_type: buildout
-    - odoo_version: 10.0
-    - odoo_repo_type: git
-    - odoo_repo_url: https://github.com/osiell/odoo-buildout-example.git
-    - odoo_repo_rev: "{{ odoo_version }}"
-    - odoo_repo_dest: "/home/{{ odoo_user }}/odoo"
-```
+### Posibles fallos
 
-The same but with PostgreSQL installed on a remote host (and available from
-your Ansible inventory):
+##### Problemas de SSH
+Habrá que comprobar si podemos acceder por ssh al servidor, teniendo la clave pública en la carpeta authorized_keys.
 
-```yaml
-- name: Odoo
-  hosts: odoo_server
-  become: yes
-  roles:
-    - odoo
-  vars:
-    - odoo_install_type: buildout
-    - odoo_version: 10.0
-    - odoo_repo_type: git
-    - odoo_repo_url: https://github.com/osiell/odoo-buildout-example.git
-    - odoo_repo_rev: "{{ odoo_version }}"
-    - odoo_repo_dest: "/home/{{ odoo_user }}/odoo"
-    - odoo_config_db_host: pg_server
-    - odoo_config_db_user: odoo
-    - odoo_config_db_passwd: PaSsWoRd
-```
+Comprobar también en el archivo de configuración de **hosts** que el argumento ansible_user y ansible_host estan definidos correctamente.
 
-By default Ansible is looking for a `bootstrap.py` script and a `buildout.cfg`
-file at the root of the cloned repository to call Buildout, but you can change
-that to point to your own files. Assuming your repository looks like this:
+##### Error de python
+Realizar los siguientes comandos en el servidor remoto:
 
-```sh
-REPO/
-├── addons              # custom modules
-├── bin
-│   └── bootstrap.py
-├── builtout.cfg
-├── builtout.dev.cfg
-├── builtout.prod.cfg
-└── builtout.test.cfg
-```
+`apt-get update`
 
-We just set the relevant options to tell Ansible the files to use with the
-`odoo_buildout_*` options:
+`apt-get install build-essential libssl-dev libffi-dev python-dev`
 
-```yaml
-- name: Odoo
-  hosts: odoo_server
-  become: yes
-  roles:
-    - odoo
-  vars:
-    - odoo_install_type: buildout
-    - odoo_version: 10.0
-    - odoo_repo_type: git
-    - odoo_repo_url: https://SERVER/REPO
-    - odoo_repo_rev: master
-    - odoo_repo_dest: "/home/{{ odoo_user }}/odoo"
-    - odoo_buildout_bootstrap_path: "/home/{{ odoo_user }}/odoo/bin/bootstrap.py"
-    - odoo_buildout_config_path: "/home/{{ odoo_user }}/odoo/buildout.prod.cfg"
-```
+### Variables disponibles
+Mirar [ansible-odoo/defaults/main.yml](ansible-odoo/defaults/main.yml)
 
-## Variables
-
-See the [defaults/main.yml](defaults/main.yml) file.
+### Más información
+[Repo original osiell/ansible-odoo](https://github.com/osiell/ansible-odoo/blob/master/README.md)
