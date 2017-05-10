@@ -1,6 +1,6 @@
 # Ansible - Odoo
 
-Instalación de odoo con ansible junto con la localización española.
+Instalación de odoo y la localización española mediante ansible
 
 ### Configuración inicial
 * Instalar ansible: `pip install ansible`
