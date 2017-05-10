@@ -1,0 +1,4 @@
+odoo:
+  version: 8.0
+  home: odoo_gob
+  repo_git: https://github.com/odoo/odoo.git
