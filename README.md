@@ -1,6 +1,6 @@
 # Ansible - Odoo
 
-Instalación de odoo y la localización española mediante ansible
+Instalación de odoo y localización española mediante ansible.
 
 ### Configuración inicial
 * Instalar ansible: `pip install ansible`
@@ -38,12 +38,17 @@ El repositorio viene con este ejemplo de receta:
         - "/home/{{ odoo_user }}/odoo/l10n-spain"
 ```
 Si quisieramos seleccionar el host donde se va a ejecutar cambiaremos _all_, por la etiqueta que pusieramos en el fichero de configuración **hosts**, en nuestro caso podría ser _localhost_ o _servidorDestino_
+
 En _vars_ podemos añadir o modificar las variables que queramos, ya sea para cambiar la version de odoo que se va a instalar, la contraseña maestra, o el repositorio.
 En este caso en la receta de ejemplo se instalaría la versión 8 de Odoo con todas sus dependencias.
 
 Comando para ejecutar receta:
 
 `ansible-playbook playbook.yml`
+
+### Variables disponibles
+Mirar [ansible-odoo/defaults/main.yml](ansible-odoo/defaults/main.yml)
+
 
 ### Posibles fallos
 
@@ -59,8 +64,6 @@ Realizar los siguientes comandos en el servidor remoto:
 
 `apt-get install build-essential libssl-dev libffi-dev python-dev`
 
-### Variables disponibles
-Mirar [ansible-odoo/defaults/main.yml](ansible-odoo/defaults/main.yml)
 
 ### Más información
 [Repo original osiell/ansible-odoo](https://github.com/osiell/ansible-odoo/blob/master/README.md)
