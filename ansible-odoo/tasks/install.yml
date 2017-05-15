@@ -14,7 +14,7 @@
   with_items:
     - postgresql-common
     - postgresql-contrib
-    - postgresql-9.5
+    - postgresql
   tags:
     - packages
 
