@@ -53,6 +53,10 @@ Mirar [ansible-odoo/defaults/main.yml](ansible-odoo/defaults/main.yml)
 ### Posibles fallos
 
 ##### Problemas de SSH
+```bash
+UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh.", "unreachable": true}
+```
+
 Habrá que comprobar si podemos acceder por ssh al servidor, teniendo la clave pública en la carpeta authorized_keys.
 
 Comprobar también en el archivo de configuración de **hosts** que el argumento ansible_user y ansible_host estan definidos correctamente.
@@ -63,6 +67,30 @@ Realizar los siguientes comandos en el servidor remoto:
 `apt-get update`
 
 `apt-get install build-essential libssl-dev libffi-dev python-dev`
+
+Si nos da el siguiente error:
+```python
+locale.Error: unsupported locale setting
+```
+Ejecutaremos en la consola
+`export LC_ALL=C`
+
+
+##### Error de postgres al intentar crear una base de datos nueva en Odoo
+
+```python
+new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII) HINT: Use the same encoding as in the template database, or use template0 as template.
+```
+Para solucionarlo ejecutaremos en postgres los siguientes comandos
+```sql
+UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
+DROP DATABASE template1;
+CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UTF8';
+UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';
+\c template1
+VACUUM FREEZE;
+```
+
 
 
 ### Más información
