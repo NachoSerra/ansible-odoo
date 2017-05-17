@@ -62,6 +62,11 @@ Habrá que comprobar si podemos acceder por ssh al servidor, teniendo la clave p
 Comprobar también en el archivo de configuración de **hosts** que el argumento ansible_user y ansible_host estan definidos correctamente.
 
 ##### Error de python
+
+Error al resolver dependencia cryptography:
+```python
+error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+```
 Realizar los siguientes comandos en el servidor remoto:
 
 `apt-get update`
