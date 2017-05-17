@@ -52,7 +52,7 @@ Mirar [ansible-odoo/defaults/main.yml](ansible-odoo/defaults/main.yml)
 
 ### Posibles fallos
 
-##### Problemas de SSH
+#### Problemas de SSH
 ```bash
 UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh.", "unreachable": true}
 ```
@@ -61,7 +61,7 @@ Habrá que comprobar si podemos acceder por ssh al servidor, teniendo la clave p
 
 Comprobar también en el archivo de configuración de **hosts** que el argumento ansible_user y ansible_host estan definidos correctamente.
 
-##### Error de python
+#### Error de python
 
 Error al resolver dependencia cryptography:
 ```python
@@ -81,7 +81,7 @@ Ejecutaremos en la consola
 `export LC_ALL=C`
 
 
-##### Error de postgres al intentar crear una base de datos nueva en Odoo
+#### Error de postgres al intentar crear una base de datos nueva en Odoo
 
 ```python
 new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII) HINT: Use the same encoding as in the template database, or use template0 as template.
