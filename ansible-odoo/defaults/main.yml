@@ -9,8 +9,8 @@ odoo_init_env: {}
     #VAR1: value1
     #VAR2: value2
 odoo_logdir: "/var/log/{{ odoo_user }}"
-odoo_workdir: "/home/{{ odoo_user }}/odoo"
-odoo_rootdir: "{{ odoo_install_type == 'buildout' and '/home/'+odoo_user+'/odoo/parts/odoo' or '/home/'+odoo_user+'/odoo/server' }}"
+odoo_workdir: "/home/{{ odoo_user }}"
+odoo_rootdir: "{{ odoo_install_type == 'buildout' and '/home/'+odoo_user+'/parts/odoo' or '/home/'+odoo_user+'/server' }}"
 
 # Project repository to deploy
 odoo_repo_type: git     # git or hg
@@ -51,8 +51,8 @@ odoo_postgresql_active_unaccent: True
 odoo_config_file: "/home/{{ odoo_user }}/{{ odoo_service }}.conf"
 odoo_force_config: True
 odoo_config_addons_path:
-    - "/home/{{ odoo_user }}/odoo/server/openerp/addons"
-    - "/home/{{ odoo_user }}/odoo/server/addons"
+    - "/home/{{ odoo_user }}/server/openerp/addons"
+    - "/home/{{ odoo_user }}/server/addons"
 odoo_config_admin_passwd: admin
 odoo_config_auto_reload: False
 odoo_config_csv_internal_sep: ','

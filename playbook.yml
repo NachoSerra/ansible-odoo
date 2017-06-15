@@ -1,5 +1,5 @@
 - name: Odoo
-  hosts: all
+  hosts: '{{ host }}'
   become: yes
   roles:
     - ansible-odoo
@@ -9,8 +9,8 @@
     - odoo_repo_url2: https://github.com/OCA/l10n-spain.git
     - odoo_repo_type2: git
     - odoo_repo_rev2: 8.0
-    - odoo_repo_dest2: "/home/{{ odoo_user }}/odoo/l10n-spain"
+    - odoo_repo_dest2: "/home/{{ odoo_user }}/l10n-spain"
     - odoo_config_addons_path:
-        - "/home/{{ odoo_user }}/odoo/server/openerp/addons"
-        - "/home/{{ odoo_user }}/odoo/server/addons"
-        - "/home/{{ odoo_user }}/odoo/l10n-spain"
+        - "/home/{{ odoo_user }}/server/openerp/addons"
+        - "/home/{{ odoo_user }}/server/addons"
+        - "/home/{{ odoo_user }}/l10n-spain"
