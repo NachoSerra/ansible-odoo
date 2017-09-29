@@ -24,6 +24,10 @@
   tags:
     - odoo
     - odoo_wkhtmltox
+- include: install_nginx.yml
+  tags:
+    - odoo
+    - odoo_nginx
 
 - include: reportlab.yml
   tags:

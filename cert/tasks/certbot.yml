@@ -1,0 +1,23 @@
+- name: Download certbot
+  get_url: url=https://dl.eff.org/certbot-auto dest={{ certbot_script }} mode=0755
+
+- name: Check if Nginx exists
+  stat: path=/etc/init.d/nginx
+  register: nginx_status
+
+- name: Ensure Nginx is stopped
+  service: name=nginx state=stopped
+  when: nginx_status.stat.exists
+
+- name: Install certbot and generate cert
+  command: "{{ certbot_script }} certonly --noninteractive --agree-tos --standalone --email {{ certbot_admin_email }} -d {{ server_name }}"
+  args:
+    creates: "{{ certbot_output_dir }}"
+
+- name: Ensure Nginx is started
+  service: name=nginx state=started
+  when: nginx_status.stat.exists
+
+
+- name: Configure Nginx
+  template: src=nginx_odoo.j2 dest=/etc/nginx/conf.d/nginx_odoo.conf owner=root group=root mode=0644

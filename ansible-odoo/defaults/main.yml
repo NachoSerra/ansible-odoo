@@ -119,3 +119,7 @@ odoo_buildout_odoo_bin_path: "{{ odoo_workdir }}/bin/start_odoo"
 
 # Extra options
 odoo_user_sshkeys: ""       # ../../path/to/public_keys/*
+
+#nginx
+proxy_pass: http://localhost:8069;
+server_name: ejemplo.es

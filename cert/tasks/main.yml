@@ -1,0 +1,5 @@
+
+- include: certbot.yml
+  tags:
+    - odoo
+    - odoo_certbot
