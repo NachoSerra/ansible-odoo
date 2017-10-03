@@ -1,5 +1,5 @@
 certbot_admin_email: ejemplo@mail.es
-proxy_pass: http://localhost:8069;
+#proxy_pass: http://127.0.0.1:8069;
 certbot_script: /opt/certbot-auto
 certbot_output_dir: "/etc/letsencrypt/live/{{ server_name }}"
 server_name: ejemplo.es
