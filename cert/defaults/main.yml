@@ -1,4 +1,4 @@
-certbot_admin_email: ejemplo@ejemplo.es
+certbot_admin_email: carlos@domatix.com
 certbot_auto_renew: yes
 #proxy_pass: http://127.0.0.1:8069;
 certbot_script: /opt/certbot-auto

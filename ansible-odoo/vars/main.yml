@@ -30,4 +30,4 @@ odoo_wkhtmltox_depends_common:
 
 odoo_wkhtmltox_urls:
     - https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
-odoo_wkhtmltox_dest: "/root/wkhtmltox-{{ odoo_wkhtmltox_version }}_linux-{{ ansible_distribution_release }}-{{ odoo_debian_arch }}.deb"
+odoo_wkhtmltox_dest: "/root/wkhtmltox-0.12.1_linux-{{ ansible_distribution_release }}-{{ odoo_debian_arch }}.deb"
