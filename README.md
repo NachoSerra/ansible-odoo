@@ -80,6 +80,9 @@ locale.Error: unsupported locale setting
 Ejecutaremos en la consola
 `export LC_ALL=C`
 
+#### Problemas de dependencias en ubuntu 18.04
+
+Entrar en vars/Odoo-x.yml y cambiar el paquete python-imaging por python-pil y python-pypdf por PyPDF
 
 #### Error de postgres al intentar crear una base de datos nueva en Odoo
 
