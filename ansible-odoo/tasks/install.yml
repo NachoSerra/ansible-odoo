@@ -77,7 +77,7 @@
         update={{ project_path.stat.exists == False and 'yes'
                   or (odoo_repo_update2 and 'yes' or 'no') }}
         depth={{ odoo_repo_depth2 }}
-  when: odoo_repo_type2 == 'git' and odoo_repo_url2 is defined
+  when: odoo_repo_url2 is defined and odoo_repo_type2 == 'git'
   notify: Restart Odoo
   tags:
     - odoo_project
