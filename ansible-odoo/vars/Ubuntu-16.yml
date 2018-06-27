@@ -20,6 +20,7 @@ odoo_wkhtmltox_version: 0.12.1
 
 odoo_wkhtmltox_depends_dist:
     - libjpeg-turbo8
+    - libpng12-0
 
 odoo_wkhtmltox_depends: "{{ odoo_wkhtmltox_depends_common + odoo_wkhtmltox_depends_dist }}"
 

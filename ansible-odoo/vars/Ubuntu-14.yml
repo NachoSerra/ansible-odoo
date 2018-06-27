@@ -18,5 +18,6 @@ odoo_buildout_build_dependencies:
 
 odoo_wkhtmltox_depends_dist:
     - libjpeg-turbo8
+    - libpng12-0
 
 odoo_wkhtmltox_depends: "{{ odoo_wkhtmltox_depends_common + odoo_wkhtmltox_depends_dist }}"
