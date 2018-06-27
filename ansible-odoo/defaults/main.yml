@@ -123,4 +123,4 @@ odoo_user_sshkeys: ""       # ../../path/to/public_keys/*
 
 #nginx
 #proxy_pass: http://127.0.0.1:8069;
-server_name: disber.odoocloud.es
+server_name: domain.es
