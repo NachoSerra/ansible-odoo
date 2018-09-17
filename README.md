@@ -61,6 +61,10 @@ Habrá que comprobar si podemos acceder por ssh al servidor, teniendo la clave p
 
 Comprobar también en el archivo de configuración de **hosts** que el argumento ansible_user y ansible_host estan definidos correctamente.
 
+Si todo es correcto pero sigue dando este problema, instalar lo siguiente:
+`apt install python-dev`
+
+
 #### Error de python.
 
 Error al resolver dependencia cryptography:
