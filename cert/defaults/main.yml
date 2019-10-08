@@ -1,10 +1,6 @@
-certbot_admin_email: user@mail.com
+certbot_admin_email: no-reply@domatix.com
 certbot_auto_renew: yes
 #proxy_pass: http://127.0.0.1:8069;
 certbot_script: /opt/certbot-auto
 certbot_output_dir: "/etc/letsencrypt/live/{{ server_name }}"
-<<<<<<< HEAD
-server_name: 
-=======
-server_name: domain.es
->>>>>>> 66633be52ea9fedd0606261f6bd6fb518adbed8e
+server_name: foo.domatix.com
