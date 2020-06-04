@@ -61,6 +61,10 @@ Habrá que comprobar si podemos acceder por ssh al servidor, teniendo la clave p
 
 Comprobar también en el archivo de configuración de **hosts** que el argumento ansible_user y ansible_host estan definidos correctamente.
 
+Si todo es correcto pero sigue dando este problema, instalar lo siguiente:
+`apt install python-dev`
+
+
 #### Error de python.
 
 Error al resolver dependencia cryptography:
@@ -80,6 +84,9 @@ locale.Error: unsupported locale setting
 Ejecutaremos en la consola
 `export LC_ALL=C`
 
+#### Problemas de dependencias en ubuntu 18.04
+
+Entrar en vars/Odoo-x.yml y cambiar el paquete python-imaging por python-pil y python-pypdf por PyPDF
 
 #### Error de postgres al intentar crear una base de datos nueva en Odoo
 

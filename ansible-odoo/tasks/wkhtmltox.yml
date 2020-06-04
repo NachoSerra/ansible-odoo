@@ -10,6 +10,13 @@
   ignore_errors: True
   when: odoo_wkhtmltox_version is defined and odoo_wkhtmltox_version != False
 
+- name: Download Libpng12
+  get_url: url={{ item }}
+           dest={{ odoo_libpng12_dest }}
+  with_items: "{{ odoo_libpng12_urls }}"
+  ignore_errors: True
+  when: odoo_wkhtmltox_version is defined and odoo_wkhtmltox_version != False
+
 # Use to detect that the package was downloaded.
 # We can not register the result of the previous task to check this as Ansible
 # will flag it as failed as soon as one URL fails (even if the download has
@@ -21,6 +28,11 @@
 - name: Install wkhtmltox dependencies
   apt:  pkg={{ item }}
   with_items: "{{ odoo_wkhtmltox_depends }}"
+  when: odoo_wkhtmltox_version is defined and odoo_wkhtmltox_version != False and odoo_wkhtmltox_pkg.stat.exists
+
+- name: Install Libpng12 for wkhtmltox
+  apt:  deb="/root/libpng12-0_1.2.54-1{{ ansible_distribution_release }}_{{ odoo_debian_arch }}.deb"
+        force=yes
   when: odoo_wkhtmltox_version is defined and odoo_wkhtmltox_version != False and odoo_wkhtmltox_pkg.stat.exists
 
 - name: Install wkhtmltox

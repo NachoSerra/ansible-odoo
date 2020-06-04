@@ -18,7 +18,7 @@ server {
 
     access_log  /var/log/nginx/odoo.access.log;
     error_log   /var/log/nginx/odoo.error.log;
-    
+
     client_max_body_size 200m;
 
     # increase proxy buffer size
@@ -37,7 +37,7 @@ server {
     gzip_comp_level 9;
     gzip_http_version 1.1;
 
-    
+
     location / {
         proxy_pass http://backend-odoo;
         proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
@@ -59,7 +59,7 @@ server {
 	proxy_send_timeout          600;
 	proxy_read_timeout          600;
 	send_timeout                600;
-	
+                
     }
 
     location ~* /web/static/ {
@@ -68,8 +68,8 @@ server {
         expires 864000;
         proxy_pass http://backend-odoo;
     }
-    
-    
+
+
     location ~ ^/web/database/manager {
 #   location ~ ^/web/database/(manager|selector) {
 #      allow X.X.X.X;

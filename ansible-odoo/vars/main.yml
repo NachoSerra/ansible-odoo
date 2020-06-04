@@ -19,7 +19,6 @@ odoo_wkhtmltox_depends_common:
     - fontconfig
     - libfontconfig1
     - libfreetype6
-    - libpng12-0
     - zlib1g
     - libssl1.0.0
     - libx11-6
@@ -28,6 +27,10 @@ odoo_wkhtmltox_depends_common:
     - libstdc++6
     - libc6
 
+odoo_libpng12_urls:
+    - http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb
+odoo_libpng12_dest: "/root/libpng12-0_1.2.54-1{{ ansible_distribution_release }}_{{ odoo_debian_arch }}.deb"
+
 odoo_wkhtmltox_urls:
     - https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
-odoo_wkhtmltox_dest: "/root/wkhtmltox-{{ odoo_wkhtmltox_version }}_linux-{{ ansible_distribution_release }}-{{ odoo_debian_arch }}.deb"
+odoo_wkhtmltox_dest: "/root/wkhtmltox-0.12.1_linux-{{ ansible_distribution_release }}-{{ odoo_debian_arch }}.deb"

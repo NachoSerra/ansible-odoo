@@ -1,11 +1,11 @@
 - name: Odoo
-  hosts: all
+  hosts: localhost 
   become: yes
   roles:
     - ansible-odoo
   vars:
-    - odoo_version: 10.0
+    - odoo_version: 11.0
     - odoo_config_admin_passwd: admin
     - odoo_config_addons_path:
-        - "/home/{{ odoo_user }}/server/openerp/addons"
+        - "/home/{{ odoo_user }}/server/odoo/addons"
         - "/home/{{ odoo_user }}/server/addons"

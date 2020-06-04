@@ -1,5 +1,5 @@
 - name: cert
-  hosts: '{{ host }}'
+  hosts: 'all'
   become: yes
   roles:
     - cert
